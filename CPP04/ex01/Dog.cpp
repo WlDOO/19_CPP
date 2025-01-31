@@ -6,7 +6,7 @@
 /*   By: najeuneh <najeuneh@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:23:20 by najeuneh          #+#    #+#             */
-/*   Updated: 2024/12/23 20:04:31 by najeuneh         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:07:30 by najeuneh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ Dog::Dog()
 
 Dog::Dog(const Dog& Dog) : Animal(Dog)
 {
+	(*this) = Dog;
 	this->brain = new Brain(*Dog.brain);
 	std::cout << "Dog copy constructor called" <<std::endl;	
-	(*this) = Dog;
 }
 
 Dog::~Dog()

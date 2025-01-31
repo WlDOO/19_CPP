@@ -6,7 +6,7 @@
 /*   By: najeuneh <najeuneh@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 14:26:10 by najeuneh          #+#    #+#             */
-/*   Updated: 2024/12/23 20:07:44 by najeuneh         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:22:18 by najeuneh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int main()
 
 	x = 2;
 	const Animal* j = new Dog();
+	
 	const Animal* i = new Cat();
 	const Animal* Ani[x];
 

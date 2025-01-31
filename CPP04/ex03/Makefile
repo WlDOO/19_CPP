@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRCS =  Amateria.cpp  character.cpp  Cure.cpp  Ice.cpp  main.cpp  MateriaSource.cpp
 
-NAME = Animal
+NAME = Materia
 
 INCLUDE = -I Amateria.hpp -I character.hpp -I Cure.hpp -I Ice.hpp -I Icharacter.hpp -I ImaterialSource.hpp -I MateriaSource.hpp\
 

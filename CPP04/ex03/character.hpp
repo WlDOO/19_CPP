@@ -6,7 +6,7 @@
 /*   By: najeuneh <najeuneh@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:23:36 by najeuneh          #+#    #+#             */
-/*   Updated: 2025/01/29 15:55:50 by najeuneh         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:58:19 by najeuneh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ class Character : public ICharacter
 		void equip(AMateria* m);
 		void unequip(int idx);
 		void use(int idx, ICharacter& target);
-		AMateria GetMateria(int idx);
+		AMateria *GetMateria(int idx);
 	};
 

@@ -6,7 +6,7 @@
 /*   By: najeuneh <najeuneh@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:26:16 by najeuneh          #+#    #+#             */
-/*   Updated: 2025/01/29 16:28:26 by najeuneh         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:20:46 by najeuneh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,16 @@ Character::Character(std::string Name)
 
 Character::Character(const Character& Char)
 {
-	(*this) = Char;
+	Name = Char.getName();
+	for (int i = 0; i <  4; i++)
+	{
+		if (Char.Mat[i])
+		{
+			this->Mat[i] = Char.Mat[i]->clone();
+		}
+		else
+			this->Mat[i] = NULL;	
+	}
 }
 
 Character Character::operator=(const Character& Char)
@@ -30,12 +39,27 @@ Character Character::operator=(const Character& Char)
 	if (this != &Char)
 	{
 		this->Name = Char.Name;
+		for (int i = 0; i < 4; i++)
+		{
+			if (Char.Mat[i])
+			{
+				this->Mat[i] = Char.Mat[i]->clone();
+			}
+			else
+				this->Mat[i] = NULL;
+		}
 	}
 	return *this;
 }
 
 Character::~Character()
-{}
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->Mat[i] != NULL)
+			delete this->Mat[i];
+	}
+}
 
 std::string	const & Character::getName() const
 {
@@ -49,6 +73,7 @@ void	Character::equip(AMateria* m)
 		if (this->Mat[i] == NULL)
 		{
 			this->Mat[i] = m;
+			std::cout << "Character " << this->getName() << " has been equipped at slot " << i << std::endl; 
 			return ;
 		}
 	}
@@ -66,19 +91,22 @@ void	Character::unequip(int idx)
 		this->Mat[idx] = NULL;
 	}
 }
-void	Character::use(int idx, ICharacter& target)
-{
-	if (idx <= 3 || idx >= 0)
-	{
-		AMateria *Mat = target.getMateria(idx)
-		
-	}
-}
 
-AMateria	Character::GetMateria(int idx)
+AMateria	*Character::GetMateria(int idx)
 {
 	if (idx >= 0 && idx <= 3)
 	{
 		if (!this->Mat[idx])
+			return 0;
+		return this->Mat[idx];
 	}
+	return 0;
+}
+
+void	Character::use(int idx, ICharacter& target)
+{
+	if (idx <= 3 || idx >= 0 || this->Mat[idx])
+		this->Mat[idx]->use(target);
+	else
+		std::cout << "nothing to use" << std::endl;
 }
