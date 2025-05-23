@@ -6,7 +6,7 @@
 /*   By: najeuneh <najeuneh@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:43:10 by najeuneh          #+#    #+#             */
-/*   Updated: 2025/05/19 17:06:47 by najeuneh         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:12:18 by najeuneh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 template <typename T>
 void sortlist(T &cont)
 {
-	if (cont.size() < 2)
-		return;
-
 	T winner;
 	T loser;
+	if (cont.size() < 2)
+		return;
 	for (size_t i = 0; i < (cont.size() - (cont.size() % 2)); i += 2)
 	{
 		int a = cont[i];
@@ -38,27 +37,43 @@ void sortlist(T &cont)
 	if (cont.size() % 2)
 		winner.push_back(cont[cont.size() - 1]);
 	sortlist(winner);
-	cont.clear();
 	sortinsert(winner, loser);
+	cont.clear();
 	cont.assign(winner.begin(), winner.end());
 }
 
 template <typename T>
 void sortinsert(T &winner, T &loser)
 {
-	T jacob;
-	Jacobsthal(loser.size(), jacob);
-	size_t last = 0;
+	std::vector<size_t> insertion_order;
+	std::vector<size_t> check;
+	Jacobsthal(loser.size(), insertion_order);
 
-	for (size_t j = 0; j < jacob.size(); ++j)
+	for (size_t i = 0; i < loser.size(); ++i)
 	{
-		size_t group_size = jacob[j] - last;
-		for (size_t i = 0; i < group_size && (last + i) < loser.size(); i++)
+		bool found = false;
+		for (size_t j = 0; j < insertion_order.size(); ++j)
 		{
-			int pos = findpos(winner, loser[last + i]);
-			winner.insert(winner.begin() + pos, loser[last + i]);
+			if (insertion_order[j] == i)
+			{
+				found = true;
+				break;
+			}
 		}
-		last += group_size;
+		if (!found)
+			insertion_order.push_back(i);
+	}
+	for (size_t i = 0; i < insertion_order.size(); ++i)
+	{
+		size_t index = insertion_order[i];
+		if (index < loser.size())
+		{
+			if (std::find(check.begin(), check.end(), index) != check.end())
+				continue;
+			int pos = findpos(winner, loser[index]);
+			winner.insert(winner.begin() + pos, loser[index]);
+			check.push_back(index);
+		}
 	}
 }
 
@@ -83,6 +98,7 @@ int findpos(T winner, int find)
 	}
 	return (a);
 }
+
 void PmergeMe(char **str)
 {
 	std::vector<int> vector;
@@ -115,8 +131,7 @@ void PmergeMe(char **str)
 		std::cout << vector[i] << " ";
 	}
 	double time = static_cast<double>(end - start);
-	std::cout << std::endl
-			  << "Time to process a range of " << vector.size() << " elements with std::vector : " << time << " us" << std::endl;
+	std::cout << std::endl << "Time to process a range of " << vector.size() << " elements with std::vector : " << time << " us" << std::endl;
 	start = clock();
 	sortlist(list);
 	end = clock();
@@ -127,15 +142,21 @@ void PmergeMe(char **str)
 template <typename T>
 void Jacobsthal(size_t n, T &sequence)
 {
-	sequence.push_back(0);
+	sequence.clear();
 	if (n == 0)
 		return;
-	sequence.push_back(1);
-	if (n == 1)
-		return;
-	for (size_t i = 2; i <= n; i++)
+
+	sequence.push_back(1); // on commence à 1
+	size_t j0 = 0;
+	size_t j1 = 1;
+	size_t next = j1 + 2 * j0;
+
+	while (next < n)
 	{
-		int j = sequence[i - 2] + sequence[i - 1];
-		sequence.push_back(j);
+		sequence.push_back(next);
+		j0 = j1;
+		j1 = next;
+		next = j1 + 2 * j0;
 	}
 }
+

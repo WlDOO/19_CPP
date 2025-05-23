@@ -6,7 +6,7 @@
 /*   By: najeuneh <najeuneh@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:42:53 by najeuneh          #+#    #+#             */
-/*   Updated: 2025/05/19 16:22:40 by najeuneh         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:52:20 by najeuneh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 #include <stdlib.h>
 #include <deque>
 #include <time.h>
+#include <algorithm>
+
 void	PmergeMe(char **str);
 template<typename T>
-void	sortlist(T& cont);
+void	sortlist(T& cont, T &loser);
 template<typename T>
 void	sortinsert(T& winner, T& loser);
 template<typename T>

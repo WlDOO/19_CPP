@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build PmergeMe",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g", // Générer des informations de débogage
+                "${workspaceFolder}/ex02/*.cpp", // Compiler tous les fichiers .cpp dans le dossier ex02
+                "-o",
+                "${workspaceFolder}/ex02/PmergeMe" // Nom de l'exécutable généré
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compile all .cpp files in the ex02 folder into PmergeMe."
+        }
+    ]
+}

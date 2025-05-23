@@ -1,6 +1,6 @@
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 #-std=c++98
 
 SRCS = main.cpp PmergeMe.cpp
 NAME = PmergeMe
